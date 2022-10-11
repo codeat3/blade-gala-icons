@@ -9,27 +9,35 @@ $svgNormalization = static function (string $tempFilepath, array $iconSet, SplFi
     // perform generic optimizations
     $iconProcessor = new IconProcessor($tempFilepath, $iconSet, $sourceFile);
     $iconProcessor
-        ->optimize()
+        ->optimize(pre: function (&$svgEl) {
+            $metadata = $svgEl->getElementsByTagName('metadata');
+            $svgEl->removeChild($metadata[0]);
+            $metadata = $svgEl->getElementsByTagName('title');
+            $svgEl->removeChild($metadata[0]);
+            foreach (['xmlns'] as $attribute) {
+                $svgEl->removeAttribute($attribute);
+            }
+        })
         ->postOptimizationAsString(function ($svgLine) {
-
+            $replacePattern = [
+                '/\<sodipodi\:namedview.*\<\/sodipodi\:namedview\>/s' => '',
+            ];
+            $svgLine = preg_replace(array_keys($replacePattern), array_values($replacePattern), $svgLine);
             $svgLine = str_replace('stroke:#000000;', 'stroke:currentColor;', $svgLine);
-            // $svgLine = str_replace('fill="black"', 'fill="currentColor"', $svgLine);
-
             return $svgLine;
         })
         ->save(function ($name, $file) use ($sourceFile, $iconSet) {
             return Str::replace('svg', '', Str::replace('gala-', '', $sourceFile->getFilename()));
         });
-
 };
 
 return [
     [
         // Define a source directory for the sets like a node_modules/ or vendor/ directory...
-        'source' => __DIR__.'/../dist/*',
+        'source' => __DIR__ . '/../dist/*',
 
         // Define a destination directory for your icons. The below is a good default...
-        'destination' => __DIR__.'/../resources/svg',
+        'destination' => __DIR__ . '/../resources/svg',
 
         // Enable "safe" mode which will prevent deletion of old icons...
         'safe' => false,
