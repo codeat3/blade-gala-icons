@@ -12,9 +12,15 @@ $svgNormalization = static function (string $tempFilepath, array $iconSet, SplFi
         ->optimize(pre: function (&$svgEl) {
             $metadata = $svgEl->getElementsByTagName('metadata');
             $svgEl->removeChild($metadata[0]);
-            $metadata = $svgEl->getElementsByTagName('title');
-            $svgEl->removeChild($metadata[0]);
-            foreach (['xmlns'] as $attribute) {
+            $title = $svgEl->getElementsByTagName('title');
+            $svgEl->removeChild($title[0]);
+            foreach ([
+                'sodipodi:docname',
+                'inkscape:version',
+                'inkscape:export-xdpi',
+                'inkscape:export-ydpi',
+            ] as $attribute) {
+                // dd($attribute);
                 $svgEl->removeAttribute($attribute);
             }
         })
