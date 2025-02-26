@@ -2,12 +2,20 @@
 
 This changelog follows [the Keep a Changelog standard](https://keepachangelog.com).
 
-## [Unreleased](https://github.com/codeat3/blade-gala-icons/compare/1.2.0...HEAD)
+## [Unreleased](https://github.com/codeat3/blade-gala-icons/compare/1.3.0...HEAD)
 
 ## 1.0.0 (2022-10-10)
 
 - Initial release.
 - Synced with the latest commit [Gala Icons - commit: 2a55f158a8b62ff6ffc1aa9486f728f41acccea3](https://github.com/sisyphusion/gala-icons/commit/2a55f158a8b62ff6ffc1aa9486f728f41acccea3)
+
+## [1.3.0](https://github.com/codeat3/blade-gala-icons/compare/1.2.0...1.3.0) - 2025-02-26
+
+### What's Changed
+
+* added laravel 12 support by @swapnilsarwe in https://github.com/codeat3/blade-gala-icons/pull/6
+
+**Full Changelog**: https://github.com/codeat3/blade-gala-icons/compare/1.2.0...1.3.0
 
 ## [1.2.0](https://github.com/codeat3/blade-gala-icons/compare/1.1.1...1.2.0) - 2024-02-29
 
